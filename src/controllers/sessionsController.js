@@ -84,7 +84,7 @@ class SessionsController {
 	async current(req, res) {
 
 	}
-
+/*
 sessionsController.post('/login',
 	passport.authenticate('login', {
 		failureRedirect: '/login',
@@ -199,6 +199,8 @@ sessionsController.get('/current', passportCall('jwt'), (req, res) => {
 		session: req.session
 	})
 })
+*/
+	
 }
 
 module.exports = SessionsController
