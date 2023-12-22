@@ -1,1 +1,6 @@
-Simplemente lo que debo hacer es instalar los swaggers y crear la carpeta DOCS y sus respectivos yaml
+
+
+swagger-jsdoc: Para ver los YAML
+swagger-ui-express: Para ver una interfaz interactiva
+
+npm i swagger-jsdoc swagger-ui-express
