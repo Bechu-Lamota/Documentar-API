@@ -1,9 +1,0 @@
-/node_modules
-/.env.prod
-.env.dev
-/.gitignore
-
-swagger-jsdoc: Para ver los YAML
-swagger-ui-express: Para ver una interfaz interactiva
-
-npm i swagger-jsdoc swagger-ui-express

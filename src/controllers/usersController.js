@@ -56,9 +56,6 @@ class UsersController {
       if (!newUser) {
         return res.status(500).json({ error: 'No se pudo crear el usuario' })
       }
-      if (userExist) {
-        return res.status(400).send({ error: "El usuario ya se encuentra registrado" });
-      }
   
       return res.status(201).json(newUser)
     } catch (error) {
@@ -101,12 +98,12 @@ class UsersController {
     }
   }
 
-  async loginUser (req, res) {
+  async loginUser(req, res) {
     try {
       const { email, password } = req.body
       if (!email || !password) return res.status(400).send({ status: "error", error: "Campo incompleto" });
       const userLogeedIn = this.service.loginUser(email, password)
-      
+
       return res.json({ userLogeedIn })
     } catch (error) {
       console.error('Error al logguearse:', error)

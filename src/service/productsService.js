@@ -41,8 +41,10 @@ class ProductService {
 		}
 
 		// Verifica si el usuario tiene permisos para actualizar el producto
-		if (!(user && (user.role === 'ADMIN' || user.email === product.owner))
-		) {	throw new Error('No tienes permisos para actualizar este producto')
+		if (
+			!(user && (user.role === 'ADMIN' || user.email === product.owner))
+		) {
+			throw new Error('No tienes permisos para actualizar este producto')
 		}
 
 		const productUpdated = {
@@ -54,21 +56,26 @@ class ProductService {
 		}
 
 		await this.repository.updateOne({ _id: id }, productUpdated)
+
 		return productUpdated
 	}
 
 	async deleteProduct(id, user) {
 		const product = await this.repository.findById(id)
+
 		if (!product) {
 			throw new Error('Producto no existe')
 		}
+
 		// Verifica si el usuario tiene permisos para eliminar el producto
 		if (
 			!(user && (user.role === 'ADMIN' || (user.role === 'PREMIUM' && product.owner === user.email)))
-		) { throw new Error('No tienes permisos para eliminar este producto')
+		) {
+			throw new Error('No tienes permisos para eliminar este producto')
 		}
 
 		await this.repository.deleteOne({ _id: id })
+
 		return true
 	}
 

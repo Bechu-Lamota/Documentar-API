@@ -1,4 +1,4 @@
-const productsMemoryDAO= require('../DAOs/memory/productsMemoryDAO')
+const productsMemoryDAO = require('../DAOs/memory/productsMemoryDAO')
 const ProductsMongoDAO = require('../DAOs/mongodb/productsMongoDAO')
 const productsMongoDAO = require('../DAOs/mongodb/productsMongoDAO')
 
@@ -11,7 +11,7 @@ const storageMapper = {
 module.exports = (storage) => {
 	console.log({ storage })
 	const storageFn = storageMapper[storage] || storageMapper.default
-	
+
 	const dao = storageFn()
 	console.log({ dao })
 

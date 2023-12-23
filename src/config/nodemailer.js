@@ -53,7 +53,7 @@ const purchaseMail = () => (user, result) ({
 })
 
 const registerMail = () => (user) ({
-  from: `SWISH <${MAIL}>`,
+  from: `SWISH ${MAIL}`,
   to: user.email,
   subject: 'Bienvenido a la comunidad más grande',
   html: `<div>

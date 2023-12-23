@@ -6,10 +6,10 @@ const { sendMail, recoveryMail } = require('../config/nodemailer')
 const UsersController = require('../controllers/usersController')
 
 class SessionsController {
-	constructor () {
-	this.user = new UsersController()
+	constructor() {
+		this.user = new UsersController()
 	}
-	
+
 	async register(req, res) {
 		try {
 			const { body } = req
@@ -30,7 +30,7 @@ class SessionsController {
 			return res.status(500).json({ error: 'Error al registrarse', details: error.message })
 		}
 	}
-	
+
 	async cookie(req, res) {
 		if (!req.session.counter) {
 			req.session.counter = 1
@@ -50,7 +50,7 @@ class SessionsController {
 	async github(req, res, next) {
 		try {
 			passport.authenticate('github', { scope: ['user: email'] })(req, res, next)
-			} catch (error) {
+		} catch (error) {
 			console.error(error)
 			return res.status(500).json({ error: 'Error al autenticarse con GitHub', details: error.message })
 		}
@@ -59,14 +59,14 @@ class SessionsController {
 	async githubCallback(req, res, next) {
 		try {
 			passport.authenticate('github', { failureRedirect: '/login', failureFlash: true })(req, res, next)
-			} catch (error) {
+		} catch (error) {
 			console.error(error)
 			return res.status(500).json({ error: 'Error al procesar la autenticación de GitHub', details: error.message })
-			}
 		}
+	}
 
 	async login(req, res) {
-		
+
 	}
 
 	async recoveryPassword(req, res) {
@@ -84,123 +84,123 @@ class SessionsController {
 	async current(req, res) {
 
 	}
-/*
-sessionsController.post('/login',
-	passport.authenticate('login', {
-		failureRedirect: '/login',
-		failureFlash: true
-	}),
-	async (req, res) => {
-		const token = generateToken({
-			name: req.user.name,
-			email: req.user.email,
-			role: req.user.role  // Agregar el rol del usuario al token
-		});
-
-		console.log({ token }); // Agrega este registro para verificar el token
-
-		res.cookie('authToken', token, {
-			maxAge: 60 * 60 * 1000
-		});
-
-		const user = req.session.user; // Considera eliminar la necesidad de usar sessions
-		const redirectUrl = user
-			? '/products'
-			: '/swish'
-		// Redirige a /products si hay un usuario en sesión, de lo contrario a /swish
-		res.redirect(redirectUrl)
-	})
-
-sessionsController.post('/recovery-password', async (req, res) => {
-	try {
-		const { email } = req.body
-		const user = await usersController.getUserByEmail(email)
-
-		if (!user) {
-			req.flash('error', 'El usuario no existe en el sistema')
-			return res.status(401).redirect('/recovery-password')
-		}
-
-		// Genera un token único y almacénalo en el usuario
-		const resetToken = createHash(Date.now().toString())
-		user.resetToken = resetToken
-		user.resetTokenExpiration = Date.now() + 3600000 // Expira en 1 hora
-		// Guarda los cambios en el usuario
-		await user.save();
-
-		// Envía el correo electrónico
-		const mailRecovery = sendMail.recoveryMail(user)
-		await sendMail(mailRecovery)
-
-		req.flash('success', 'Se ha enviado un correo de recuperación de contraseña')
-		return res.redirect('/recovery-password')
-	} catch (error) {
-		console.error(error)
-		req.flash('error', 'Error al procesar la recuperación de contraseña')
-		return res.redirect('/recovery-password')
-	}
-})
-
-sessionsController.get('/reset-password/:token', async (req, res) => {
-	try {
-		const { token } = req.params
-		const user = await usersController.findOne({ resetToken: token, resetTokenExpiration: { $gt: Date.now() } });
-
-		if (!user) {
-			req.flash('error', 'El enlace de restablecimiento de contraseña no es válido o ha expirado');
-			return res.redirect('/recovery-password');
-		}
-
-		return res.render('resetPassword', { token });
-	} catch (error) {
-		console.error(error);
-		req.flash('error', 'Error al procesar el restablecimiento de contraseña');
-		return res.redirect('/recovery-password');
-	}
-});
-
-sessionsController.post('/reset-password/:token', async (req, res) => {
-	try {
-		const { token } = req.params
-		const newPassword = createHash(req.body.password);
-		const user = await userModel.findOne({ resetToken: token, resetTokenExpiration: { $gt: Date.now() } });
-
-		if (!user) {
-			req.flash('error', 'El enlace de restablecimiento de contraseña no es válido o ha expirado');
-			return res.redirect('/recovery-password');
-		}
-
-		// Verifica que la nueva contraseña no sea igual a la contraseña actual
-		if (newPassword === user.password) {
-			req.flash('error', 'La contraseña no puede ser la misma que la actual');
-			return res.redirect(`/reset-password/${token}`);
-		}
-
-		// Actualiza la contraseña y elimina el token de reseteo
-		user.password = newPassword;
-		user.resetToken = undefined;
-		user.resetTokenExpiration = undefined;
-
-		await user.save();
-
-		req.flash('success', 'Contraseña restablecida con éxito');
-		return res.redirect('/login');
-	} catch (error) {
-		console.error(error);
-		req.flash('error', 'Error al procesar el restablecimiento de contraseña');
-		return res.redirect('/recovery-password');
-	}
-});
-
-
-sessionsController.get('/current', passportCall('jwt'), (req, res) => {
-	return res.json({
-		user: req.user,
-		session: req.session
-	})
-})
-*/
+	/*
+	sessionsController.post('/login',
+		passport.authenticate('login', {
+			failureRedirect: '/login',
+			failureFlash: true
+		}),
+		async (req, res) => {
+			const token = generateToken({
+				name: req.user.name,
+				email: req.user.email,
+				role: req.user.role  // Agregar el rol del usuario al token
+			});
 	
+			console.log({ token }); // Agrega este registro para verificar el token
+	
+			res.cookie('authToken', token, {
+				maxAge: 60 * 60 * 1000
+			});
+	
+			const user = req.session.user; // Considera eliminar la necesidad de usar sessions
+			const redirectUrl = user
+				? '/products'
+				: '/swish'
+			// Redirige a /products si hay un usuario en sesión, de lo contrario a /swish
+			res.redirect(redirectUrl)
+		})
+	
+	sessionsController.post('/recovery-password', async (req, res) => {
+		try {
+			const { email } = req.body
+			const user = await usersController.getUserByEmail(email)
+	
+			if (!user) {
+				req.flash('error', 'El usuario no existe en el sistema')
+				return res.status(401).redirect('/recovery-password')
+			}
+	
+			// Genera un token único y almacénalo en el usuario
+			const resetToken = createHash(Date.now().toString())
+			user.resetToken = resetToken
+			user.resetTokenExpiration = Date.now() + 3600000 // Expira en 1 hora
+			// Guarda los cambios en el usuario
+			await user.save();
+	
+			// Envía el correo electrónico
+			const mailRecovery = sendMail.recoveryMail(user)
+			await sendMail(mailRecovery)
+	
+			req.flash('success', 'Se ha enviado un correo de recuperación de contraseña')
+			return res.redirect('/recovery-password')
+		} catch (error) {
+			console.error(error)
+			req.flash('error', 'Error al procesar la recuperación de contraseña')
+			return res.redirect('/recovery-password')
+		}
+	})
+	
+	sessionsController.get('/reset-password/:token', async (req, res) => {
+		try {
+			const { token } = req.params
+			const user = await usersController.findOne({ resetToken: token, resetTokenExpiration: { $gt: Date.now() } });
+	
+			if (!user) {
+				req.flash('error', 'El enlace de restablecimiento de contraseña no es válido o ha expirado');
+				return res.redirect('/recovery-password');
+			}
+	
+			return res.render('resetPassword', { token });
+		} catch (error) {
+			console.error(error);
+			req.flash('error', 'Error al procesar el restablecimiento de contraseña');
+			return res.redirect('/recovery-password');
+		}
+	});
+	
+	sessionsController.post('/reset-password/:token', async (req, res) => {
+		try {
+			const { token } = req.params
+			const newPassword = createHash(req.body.password);
+			const user = await userModel.findOne({ resetToken: token, resetTokenExpiration: { $gt: Date.now() } });
+	
+			if (!user) {
+				req.flash('error', 'El enlace de restablecimiento de contraseña no es válido o ha expirado');
+				return res.redirect('/recovery-password');
+			}
+	
+			// Verifica que la nueva contraseña no sea igual a la contraseña actual
+			if (newPassword === user.password) {
+				req.flash('error', 'La contraseña no puede ser la misma que la actual');
+				return res.redirect(`/reset-password/${token}`);
+			}
+	
+			// Actualiza la contraseña y elimina el token de reseteo
+			user.password = newPassword;
+			user.resetToken = undefined;
+			user.resetTokenExpiration = undefined;
+	
+			await user.save();
+	
+			req.flash('success', 'Contraseña restablecida con éxito');
+			return res.redirect('/login');
+		} catch (error) {
+			console.error(error);
+			req.flash('error', 'Error al procesar el restablecimiento de contraseña');
+			return res.redirect('/recovery-password');
+		}
+	});
+	
+	
+	sessionsController.get('/current', passportCall('jwt'), (req, res) => {
+		return res.json({
+			user: req.user,
+			session: req.session
+		})
+	})
+	*/
+
 }
 
 module.exports = SessionsController

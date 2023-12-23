@@ -2,30 +2,30 @@ const ProductsDTO = require('../data/DAOs/DTOs/productDTO')
 const productsFactoryDAO = require('../data/DAOs/Factory/productsFactoryDAO')
 
 class ProductsRepository {
-    constructor () {
-        this.storage = productsFactoryDAO(process.env.STORAGE)
-    }
-    
-    getProducts () {
-        return this.storage.getProducts()
-            .then(products => products.map(product => new ProductsDTO(product)))
-    }
+	constructor() {
+		this.storage = productsFactoryDAO(process.env.STORAGE)
+	}
 
-    getProductsById (id) {
-        return this.storage.getProductById(id)
-    }
-    
-    addProduct (body) {
-        return this.storage.addProduct(body)
-    }
+	getProducts() {
+		return this.storage.getProducts()
+			.then(products => products.map(product => new ProductsDTO(product)))
+	}
 
-    updateProduct (id, body) {
-        return this.storage.updateProduct(id, body)
-    }
+	getProductsById(id) {
+		return this.storage.getProductById(id)
+	}
 
-    deleteProduct (id) {
-        return this.storage.deleteProduct(id)
-    }
+	addProduct(body) {
+		return this.storage.addProduct(body)
+	}
+
+	updateProduct(id, body) {
+		return this.storage.updateProduct(id, body)
+	}
+
+	deleteProduct(id) {
+		return this.storage.deleteProduct(id)
+	}
 
 
 }

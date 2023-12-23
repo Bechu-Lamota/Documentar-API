@@ -64,7 +64,7 @@ class CartsService {
 				purchaser: user.email,
 				productsStock,
 			}
-			
+
 			if (productsStock.length === 0) {
 				await this.repository.purchaseCart(order) //Finaliza la compra si no hay productos en stock.
 			}
