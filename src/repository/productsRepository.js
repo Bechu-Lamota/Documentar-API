@@ -1,5 +1,5 @@
-const ProductsDTO = require('../data/DAOs/DTOs/productDTO')
-const productsFactoryDAO = require('../data/DAOs/Factory/productsFactoryDAO')
+const ProductsDTO = require('../data/DTOs/productDTO')
+const productsFactoryDAO = require('../data/Factory/productsFactoryDAO')
 
 class ProductsRepository {
 	constructor() {

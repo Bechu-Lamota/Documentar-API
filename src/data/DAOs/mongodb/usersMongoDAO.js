@@ -1,5 +1,5 @@
-const { generateToken } = require('../../utils/jwt')
-const { isValidPassword } = require('../../utils/passwordHash')
+const { generateToken } = require('../../../utils/jwt')
+const { isValidPassword } = require('../../../utils/passwordHash')
 const usersModel = require('../models/userModel')
 
 class UsersMongoDAO {
